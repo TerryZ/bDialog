@@ -23,6 +23,12 @@
  * 增加fullWidth参数，设置是否为全宽度窗口，默认为false(关闭)
  * 2017.03.27
  * 增加customClass参数，允许使用样式对弹出框整体样式进行定义
+ * 2017.06.14
+ * 重构bDialog代码
+ * 2017.06.20
+ * 修复内容区域高度设置误差问题
+ * 适配Bootstrap3版本
+ * 修复部分参数丢失的问题
  */
 /* ========================================================================
  * Bootstrap: modal.js v3.3.7
@@ -38,7 +44,6 @@
 ;(function($){
 	"use strict";
 	//弹出窗口模板
-	//aria-labelledby="ebcModalLabel"
 	var _template = '<div class="modal hide bDialog" dialog="bDialog" tabindex="-1" aria-labelledby="bDialogHeaderLabel" role="dialog" aria-hidden="true">' + 
 			   '<div class="modal-dialog" role="document">' + 
 			   '<div class="modal-content">' + 
@@ -66,82 +71,48 @@
 		'fullWidth' : false,   //是否展示全宽度窗口
 		'customClass' : undefined,//自定义样式，它会添加到弹出窗口的最外层DIV上
 		'show' : false,        //初始化时即显示模态对话框
-		'onShow' : $.noop,     //显示对话前执行的回调
+		'onShow' : $.noop,     //显示对话框前执行的回调
 		'onShowed' : $.noop,   //显示完成对话框后执行的回调
 		'onHide' : $.noop,     //关闭/隐藏对话框前执行的回调
 		'onHidden' : $.noop,   //关闭/隐藏对话框后执行的回调
 		'callback' : $.noop    //窗口回调函数，参数1：回调后返回的数据(callback(data))
 	};
-	/**
-     *  重新定位窗口位置(主要是处理垂直高度居中)
-     *
-     *  @return void
-     *
-     *  @access private
-     */
-    var rePosition = function(main,speed) {
-        var
-            // get the viewport width and height
-            viewport_width = $(window.top).width(),
-            viewport_height = $(window.top).height(),
-
-            // get dialog box's width and height
-            dialog_width = $(main).width(),
-            dialog_height = $(main).height(),
-
-            // the numeric representations for some constants that may exist in the "position" property
-            values = {
-                'left':     0,
-                'top':      0,
-                'right':    viewport_width - dialog_width,
-                'bottom':   viewport_height - dialog_height,
-                'center':   (viewport_width - dialog_width) / 2,
-                'middle':   (viewport_height - dialog_height) / 2
-            };
-
-        main.dialog_top = values['middle'];
-        
-        // position the dialog box and make it visible
-        /*
-        $(main).css({
-
-            'top':          main.dialog_top,
-            'visibility':   'visible',
-            'opacity':      0
-
-        }).animate({'opacity': 1}, 0);
-        */
-        
-        //停止正在执行的动画
-        $(main).stop(true);
-        $(main).css('visibility', 'visible').animate({
-            'top':  main.dialog_top
-        }, (undefined !== $.type(speed) && $.type(speed) == 'number') ? speed : 100);
-    };
-	window.bDialog = {
-		//打开对话框
-		//p:参数集
-		//obj:jquery对象，用于网页片断式的显示内容，若设置了URL方式打开窗口，则不需要设置该参数
-		open : function(param,obj){
-			//合并参数
-			var p = $.extend({},_defaults,param);
-			var template = _template;
-			var main = $(template);
+    var _bDialog = {
+    	/**
+    	 * 合并默认参数与用户传递参数
+    	 * @param {object} param - 用户传递参数集
+    	 * 
+	     * @return {object} 合并后参数集
+	     * 
+	     * @access private
+    	 */
+    	setParam : function(param){
+    		return $.extend({},_defaults,param);
+    	},
+    	/**
+    	 * 生成窗口对象
+    	 * @param {object} p - 插件参数集
+    	 * @param {object} obj - 页面对象的html元素或jquery对象，用于将内容直接放入窗口中，若传递空值则使用iframe模式
+    	 * 
+    	 * @return {object} 生成完成的窗口对象
+    	 * 
+    	 * @access private
+    	 */
+    	buildDialog : function(p,obj){
+    		var template = _template;
+			var dialog = $(template);
 			var topBody = window.top.document.body;
-			var $$ = window.top.$;
-			var msie = navigator.userAgent.indexOf("MSIE") !== -1 || navigator.userAgent.indexOf("Trident") !== -1;
 			//在浏览器尺寸改变时使用的定时器
-			var timeout;
+			dialog.timeout = null;
 
-			if(!main) alert('未导入弹出窗口定义代码！');
 			//设置标题
-			if(p.title) $("h3.bDialogHeaderLabel",$(main)).html(p.title);
-			else $('div.bDialogHeader',$(main)).hide();
-			if(!p.dialogCloseButton)$('button.bDialogCloseButton',$(main)).hide();
-			if(p.animation) $(main).addClass('fade');//设置动画效果
+			if(p.title) $("h3.bDialogHeaderLabel",$(dialog)).html(p.title);
+			else $('div.bDialogHeader',$(dialog)).hide();
+			if(!p.dialogCloseButton)$('button.bDialogCloseButton',$(dialog)).hide();
+			if(p.animation) $(dialog).addClass('fade');//设置动画效果
 			if(p.closeButton){
-				$("div.bDialogFooter",$(main)).empty().append('<button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">关闭</button>');
-				$("div.bDialogFooter",$(main)).show();
+				$("div.bDialogFooter",$(dialog)).empty().append('<button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">关闭</button>');
+				$("div.bDialogFooter",$(dialog)).show();
 			}
 			
 			// ****************************处理回调及参数******************
@@ -164,135 +135,256 @@
 				};
 			}
 			//设置回调
-			if(p.callback) main[0].callback = _callback;
+			if(p.callback) dialog.callback = _callback;
 			//设置参数
-			if(p.params) main[0].params = p.params; else main[0].params = {};
-			main[0].returnData = null;
+			dialog[0].params = p.params ? p.params : {};
+			dialog[0].returnData = null;
 			
 			if(obj){//页面片断模式
 				var content = $(obj).clone(true);
-				$("div.bDialogBody",$(main)).html($(content).show());
-				if(p.scroll) $("div.bDialogBody",$(main)).css('overflow-y','auto');
+				$("div.bDialogBody",$(dialog)).html($(content).show());
+				if(p.scroll) $("div.bDialogBody",$(dialog)).css('overflow-y','auto');
 			}else if(p.url) {//iframe模式
 				var tmp = p.scroll ? 'yes' : 'no';
 				var iframe = '<iframe class="bDialogBodyFrame" frameborder="0" scrolling="'+tmp+'" style="width:100%;height:100%;border:0px;" src="'+p.url+'"></iframe>';
-				$("div.bDialogBody",$(main)).html(iframe);
+				$("div.bDialogBody",$(dialog)).html(iframe);
 			}
 			//设置全宽度内容
 			if(p.fullWidth){
-				$("div.bDialogHeader,div.bDialogBody,div.bDialogFooter",$(main)).addClass('container');
-				$(main).addClass('fullWidth');
+				$("div.bDialogHeader,div.bDialogBody,div.bDialogFooter",$(dialog)).addClass('container');
+				$(dialog).addClass('fullWidth');
 				p.width = '100%';
 			}
 			//自定义样式
-			if(p.customClass) $(main).addClass(p.customClass);
+			if(p.customClass) $(dialog).addClass(p.customClass);
 			
-			$(topBody).append(main);
-			
-			/**
-			 * 事件绑定-------start
-			 */
-			if(p.onShow && $.isFunction(p.onShow)) $$(main).off('show.bs.modal').on('show.bs.modal',function(){
+			$(topBody).append(dialog);
+			return dialog;
+    	},
+    	/**
+    	 * 为窗口对象绑定事件
+    	 * @param {object} dialog - 生成后的窗口对象
+    	 * @param {object} p - 插件参数集
+    	 * 
+    	 * @return void
+    	 * 
+    	 * @access private
+    	 */
+    	bindEvent : function(dialog,p){
+    		var $top = window.top.$;
+    		var topBody = window.top.document.body;
+			if(p.onShow && $.isFunction(p.onShow)) $top(dialog).off('show.bs.modal').on('show.bs.modal',function(){
 				p.onShow(this);
 			});
-			if(p.onShowed && $.isFunction(p.onShowed)) $$(main).off('shown.bs.modal').on('shown.bs.modal',function(){
+			if(p.onShowed && $.isFunction(p.onShowed)) $top(dialog).off('shown.bs.modal').on('shown.bs.modal',function(){
 				p.onShowed(this);
 			});
-			if(p.onHide && $.isFunction(p.onHide)) $$(main).off('hide.bs.modal').on('hide.bs.modal',function(){
+			if(p.onHide && $.isFunction(p.onHide)) $top(dialog).off('hide.bs.modal').on('hide.bs.modal',function(){
 				p.onHide(this);
 			});
-			$$(main).off('hidden.bs.modal').on('hidden.bs.modal',function(e){
+			$top(dialog).off('hidden.bs.modal').on('hidden.bs.modal',function(e){
 				// stop the timeout
-                clearTimeout(timeout);
+                clearTimeout(dialog.timeout);
 				if(p.onHidden && $.isFunction(p.onHidden)) p.onHidden(this);
-				var data = main[0].returnData;
-				if(_callback && $.isFunction(_callback)) _callback(data);
+				var data = dialog[0].returnData, callback = dialog.callback;
+				if(callback && $.isFunction(callback)) callback(data);
 				//在移除窗口之前，先把iframe移除，解决在IE下，窗口上的输入控件获得不了焦点的问题
 				if($('iframe',$(this)).size() > 0) $('iframe',$(this)).remove();
 				$(this).remove();
-				if($('[dialog="bDialog"]',$(topBody)).size() > 0)
-					$('[dialog="bDialog"]:last',$(topBody)).addClass('dialogInActive');
+				if($('[dialog="bDialog"]',$(topBody)).size() > 0) $('[dialog="bDialog"]:last',$(topBody)).addClass('dialogInActive');
 			});
-			/**
-			 * 事件绑定----------end
-			 */
-			
-			$$(main).modal({
+			$top('div.bDialog:last',$top(topBody)).off('click.bDialog').on('click.bDialog',function(e){
+				var srcEl = e.target || e.srcElement;
+				if($(srcEl).is('div.bDialog')){
+					var that = $top('div.bDialog:last',$top(topBody));
+					$top(that).removeClass('animated').removeClass('shake');
+					setTimeout(function () {
+						that.addClass('animated').addClass('shake');
+					}, 0);
+				}
+			});
+	        //浏览器窗口尺寸变化时，自动对窗口位置进行调整
+	        $top(window.top).bind('resize.bDialog', function() {
+	            // clear a previously set timeout
+	            // this will ensure that the next piece of code will not be executed on every step of the resize event
+	            clearTimeout(dialog.timeout);
+	            // set a small timeout before doing anything
+	            dialog.timeout = setTimeout(function() {
+	            	// reposition the dialog box
+	            	_bDialog.rePosition(dialog);
+	            }, 100);
+	        });
+    	},
+    	/**
+    	 * 在页面上弹出窗口
+    	 * @param {object} dialog - 生成后的窗口对象
+    	 * @param {object} p - 插件参数集
+    	 * 
+    	 * @return void
+    	 * 
+    	 * @access private
+    	 */
+    	openDialog : function(dialog,p){
+    		$('div.modal-dialog',$(dialog)).css({
+    			'width' : p.width,
+				'height' : p.height
+    		});
+    		window.top.$(dialog).modal({
+    			backdrop : p.backdrop
+    		}).removeClass('hide');
+    		/*
+    		window.top.$(dialog).modal({
 				backdrop : p.backdrop
 			}).css({
 				'width' : p.width,
-				'height' : p.height,
+				'height' : p.height/*,
 				'margin-left' : function () {
 					return -($(this).width() / 2);
-				}
+				}* /
 			}).removeClass('hide');
-			
+			*/
+    	},
+    	/**
+    	 * 处理窗口的样式、宽度高度及位置等内容
+    	 * @param {object} dialog - 生成后的窗口对象
+    	 * @param {object} p - 插件参数集
+    	 * @param {object} obj - 页面对象的html元素或jquery对象(用于将内容直接放入窗口中)
+    	 * 
+    	 * @return void
+    	 * 
+    	 * @access private
+    	 */
+    	setCssStyle : function(dialog,p,obj){
 			/**
 			 * 处理层级顺序及遮罩层级顺序
 			 */
-			var setSize = $('div.modal-backdrop',$(topBody)).size();
+    		var topBody = window.top.document.body;
+    		var setSize = $('div.modal-backdrop',$(topBody)).size();
 			var baseNumber = 1000;
 			var stepNumber = (setSize -1) * 20;
 			$('div.modal-backdrop:last',$(topBody)).css('z-index', baseNumber + stepNumber + 10 );
-			$('div.bDialog:last',$(topBody)).css('z-index', baseNumber + stepNumber + 20 );
+			$('div.bDialog:last div.modal-content',$(topBody)).css('z-index', baseNumber + stepNumber + 20 );
+			$('div.bDialog:last',$(topBody)).css('z-index', baseNumber + stepNumber + 19 );
 			if(setSize > 1) $('div.modal-backdrop:last',$(topBody)).css('opacity','0.1');
-			$('div.modal-backdrop:last',$(topBody)).off('click.bDialog').on('click.bDialog',function(e){
-				var that = $('div.bDialog:last',$(topBody));
-				$(that).removeClass('animated').removeClass('shake');
-				setTimeout(function () {
-					that.addClass('animated').addClass('shake');
-				}, 0);
-			});
 			
 			/**
 			 * 处理样式-----------------------------start
 			 */
-			var head = $("div.bDialogHeader",$(main)).outerHeight(true);
-			var footer = p.closeButton ? $("div.bDialogFooter",$(main)).outerHeight(true) : 0;
-			var bodyPaddingTop = parseFloat($("div.bDialogBody",$(main)).css('padding-top'));
-			var bodyPaddingBottom = parseFloat($("div.bDialogBody",$(main)).css('padding-bottom'));
-			var newBodyHeight = $(main).innerHeight() - head - footer - bodyPaddingTop - bodyPaddingBottom;
-			var bodyCss = { 'height' : newBodyHeight };
-			if(newBodyHeight>400) bodyCss.maxHeight = newBodyHeight;
-			$("div.bDialogBody",$(main)).css(bodyCss);
+			var head = $("div.bDialogHeader",$(dialog)).outerHeight(true);
+			var footer = p.closeButton ? $("div.bDialogFooter",$(dialog)).outerHeight(true) : 0;
+			var bodyPaddingTop = parseFloat($("div.bDialogBody",$(dialog)).css('padding-top'));
+			var bodyPaddingBottom = parseFloat($("div.bDialogBody",$(dialog)).css('padding-bottom'));
+			var newBodyHeight = $('div.modal-dialog',$(dialog)).innerHeight() - head - footer;// - bodyPaddingTop - bodyPaddingBottom;
+			if(newBodyHeight < 400) newBodyHeight = 400;
+			var bodyCss = {'height':newBodyHeight,'max-height':newBodyHeight};
+			$("div.bDialogBody",$(dialog)).css(bodyCss);
 			
 			//若是iFrame模式则设置iFrame高度等样式
 			if(!obj){
-				var newBodyFrameHeight = newBodyHeight;// - bodyPaddingTop - bodyPaddingBottom;
-				var bodyFrameCss = { 'height' : newBodyFrameHeight };
-				if(newBodyFrameHeight>(400 - bodyPaddingTop - bodyPaddingBottom)) bodyFrameCss.maxHeight = newBodyFrameHeight;
-				$("iframe.bDialogBodyFrame",$(main)).css(bodyFrameCss);
+				var newBodyFrameHeight = newBodyHeight - bodyPaddingTop - bodyPaddingBottom;
+				if(newBodyHeight < 400) newBodyFrameHeight = 400 - bodyPaddingTop - bodyPaddingBottom;
+				var bodyFrameCss = {'height':newBodyFrameHeight,'max-height':newBodyFrameHeight};
+				$("iframe.bDialogBodyFrame",$(dialog)).css(bodyFrameCss);
 			}
 			//清除所有已弹出窗口的当前激活样式
 			$('[dialog="bDialog"]',$(topBody)).removeClass('dialogInActive');
-			$(main).addClass('dialogInActive');
-			/**
-			 * 样式处理------------------------------end
-			 */
-			
-	        // if the browser window is resized
-	        $(window.top).bind('resize.bDialog', function() {
-	            // clear a previously set timeout
-	            // this will ensure that the next piece of code will not be executed on every step of the resize event
-	            clearTimeout(timeout);
-	            // set a small timeout before doing anything
-	            timeout = setTimeout(function() {
-	            	// reposition the dialog box
-	            	rePosition(main);
-	            }, 100);
-	        });
-	        
-	        rePosition(main,0);
+			$(dialog).addClass('dialogInActive');
+    	},
+    	/**
+    	 * 最后的一些处理
+    	 * @param {object} dialog - 生成后的窗口对象
+    	 * @param {object} p - 插件参数集
+    	 * 
+	     * @return void
+	     * 
+	     * @access private
+    	 */
+    	atLast : function(dialog,p){
+    		var msie = navigator.userAgent.indexOf("MSIE") !== -1 || navigator.userAgent.indexOf("Trident") !== -1;
+    		//执行一次窗口位置定位
+	        _bDialog.rePosition(dialog,0);
 			//处理窗口拖拽
-			if(p.drag && $.fn.draggable && !msie && !p.fullWidth) $(main).draggable({handle:"div.bDialogHeader"});
-			return main;
+			if(p.drag && $.fn.draggable && !msie && !p.fullWidth) $(dialog).draggable({handle:"div.bDialogHeader"});
+    	},
+		/**
+	     * 重新定位窗口位置(主要是处理垂直高度居中)
+    	 * @param {object} dialog - 生成后的窗口对象
+    	 * @param {number} speed - 动画速度
+	     *
+	     * @return void
+	     * @access private
+	     */
+		rePosition : function(dialog,speed) {
+	        var
+	            //获得可视区域的宽度和高度
+	            viewport_width = $(window.top).width(),
+	            viewport_height = $(window.top).height(),
+
+	            //获得对话框的宽度和高度
+	            dialog_width = $('div.modal-dialog',$(dialog)).width(),
+	            dialog_height = $('div.modal-dialog',$(dialog)).height(),
+
+	            //计算位置内容
+	            values = {
+	                'left':     0,
+	                'top':      0,
+	                'right':    viewport_width - dialog_width,
+	                'bottom':   viewport_height - dialog_height,
+	                'center':   (viewport_width - dialog_width) / 2,
+	                'middle':   (viewport_height - dialog_height) / 2
+	            };
+
+	        dialog.dialog_top = values['middle'];
+	        
+	        // position the dialog box and make it visible
+	        /*
+	        $(main).css({
+
+	            'top':          main.dialog_top,
+	            'visibility':   'visible',
+	            'opacity':      0
+
+	        }).animate({'opacity': 1}, 0);
+	        */
+	        
+	        //停止正在执行的动画
+	        $('div.modal-dialog',$(dialog)).stop(true);
+	        $('div.modal-dialog',$(dialog)).css('visibility', 'visible').animate({
+	            'top':  dialog.dialog_top
+	        }, (undefined !== $.type(speed) && $.type(speed) == 'number') ? speed : 100);
+	    },
+	    /**
+	     * 获得当前获得焦点的窗口对象
+	     * @return {object} 窗口对象
+	     * @access private
+	     */
+    	getDialog : function(){
+    		var dlg = $('[dialog="bDialog"].dialogInActive',$(window.top.document.body));
+			return (dlg && $(dlg).size() == 1) ? dlg : null;
+    	}
+    };
+	window.bDialog = {
+		//打开对话框
+		//p:参数集
+		//obj:jquery对象，用于网页片断式的显示内容，若设置了URL方式打开窗口，则不需要设置该参数
+		open : function(param,obj){
+			//合并参数
+			var p = _bDialog.setParam(param);
+			var dialog = _bDialog.buildDialog(p,obj);
+			
+			_bDialog.bindEvent(dialog, p);
+			_bDialog.openDialog(dialog, p);
+			_bDialog.setCssStyle(dialog, p);
+			_bDialog.atLast(dialog, p);
+
+			return dialog;
 		},
 		//关闭当前弹出窗口
 		closeCurrent : function(data){
 			var dlg = this.getDialog();
 			if(dlg && $(dlg).size() == 1){
 				//清除参数
-				dlg[0].callback = null;
+				dlg.callback = null;
 				dlg[0].selectorparams = null;
 				dlg[0].returnData = data;
 				$("button.bDialogCloseButton",dlg).click();
@@ -300,11 +392,11 @@
 		},
 		//获得弹出窗口对象
 		getDialog : function(){
-			var dlg = $('[dialog="bDialog"].dialogInActive',$(window.top.document.body));
-			return (dlg && $(dlg).size() == 1) ? dlg : null;
+			return _bDialog.getDialog();
 		},
 		// 获得选择器中的传递参数
-		getDialogParams : function(dlg){
+		getDialogParams : function(){
+			var dlg = _bDialog.getDialog();
 			return dlg ? dlg[0].params : null;
 		},
 		// 获得选择器中的回调函数

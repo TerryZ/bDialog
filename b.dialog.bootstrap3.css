@@ -1,0 +1,112 @@
+@CHARSET "UTF-8";
+
+div.bDialog {
+	border: none;
+	-webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+	-webkit-box-shadow: 0 5px 30px rgba(0,0,0,0.9);
+	box-shadow: 0 5px 30px rgba(0,0,0,0.9);
+}
+div.bDialog div.modal-dialog{
+	
+}
+div.bDialog div.modal-header {
+	-webkit-border-top-left-radius: 2px;
+    -moz-border-top-left-radius: 2px;
+    border-top-left-radius: 2px;
+	-webkit-border-top-right-radius: 2px;
+    -moz-border-top-right-radius: 2px;
+    border-top-right-radius: 2px;
+	padding: 5px 15px;
+}
+div.bDialog div.modal-body {
+	padding: 5px;
+	overflow: hidden;
+}
+div.bDialog div.modal-body iframe {
+	position: relative;
+	display: block;
+}
+div.bDialog div.modal-header button.close {
+	opacity: 0.3;
+	font-size: 26px !important;
+}
+div.bDialog div.modal-header button.close:hover {
+	opacity: 1;
+}
+
+div.modal-backdrop, div.modal-backdrop.fade.in {
+	opacity: 0.8;
+	background-color: black;
+}
+
+
+
+
+div.bDialog.fullWidth {
+	width: 100%;
+	-webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+div.bDialog.fullWidth  div.modal-header {
+	-webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background-color: white;
+    border-bottom: 0px;
+}
+div.bDialog.fullWidth  div.modal-header h3 {
+	text-align: center;
+}
+
+
+/*
+Animate.css - http://daneden.me/animate
+Licensed under the ☺ license (http://licence.visualidiot.com/)
+
+Copyright (c) 2012 Dan Eden
+*/
+
+.animated {
+	-webkit-animation-duration: 1s;
+	   -moz-animation-duration: 1s;
+	     -o-animation-duration: 1s;
+	        animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	   -moz-animation-fill-mode: both;
+	     -o-animation-fill-mode: both;
+	        animation-fill-mode: both;
+}
+
+@-webkit-keyframes shake {
+	0%, 100% {-webkit-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-webkit-transform: translateX(10px);}
+}
+
+@-moz-keyframes shake {
+	0%, 100% {-moz-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-moz-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-moz-transform: translateX(10px);}
+}
+
+@-o-keyframes shake {
+	0%, 100% {-o-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-o-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-o-transform: translateX(10px);}
+}
+
+@keyframes shake {
+	0%, 100% {transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {transform: translateX(10px);}
+}
+
+.shake {
+	-webkit-animation-name: shake;
+	-moz-animation-name: shake;
+	-o-animation-name: shake;
+	animation-name: shake;
+}
