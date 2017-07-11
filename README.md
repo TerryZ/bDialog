@@ -13,3 +13,8 @@ plugin preview
 	<li>rich callback function</li>
 	<li>brower supper IE8+,chrome,firefox</li>
 </ul>
+
+
+## docs,example,guide
+
+Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank">https://terryz.github.io/bdialog/index.html</a>
