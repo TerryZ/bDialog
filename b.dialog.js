@@ -1,7 +1,7 @@
 /**
  * 使用Bootstrap的Modal对话框进行二次封装
  * 
- * @version 1.1
+ * @version 1.2
  * 
  * @author Terry
  * created : 2012.11.26
@@ -279,15 +279,18 @@
 			var footer = p.closeButton ? $("div.bDialogFooter",$(dialog)).outerHeight(true) : 0;
 			var bodyPaddingTop = parseFloat($("div.bDialogBody",$(dialog)).css('padding-top'));
 			var bodyPaddingBottom = parseFloat($("div.bDialogBody",$(dialog)).css('padding-bottom'));
-			var newBodyHeight = totalHeight - head - footer - bodyPaddingTop - bodyPaddingBottom;// - bodyPaddingTop - bodyPaddingBottom;
-			var minBodyHeight = 100 - head - footer - bodyPaddingTop - bodyPaddingBottom;//窗口最小高度
+			var newBodyHeight = totalHeight - head - footer;// - bodyPaddingTop - bodyPaddingBottom;
+			var minBodyHeight = 100 - head - footer;//窗口最小高度
 			if(newBodyHeight < minBodyHeight) newBodyHeight = minBodyHeight;
 			var bodyCss = {'height':newBodyHeight,'max-height':newBodyHeight};
 			$("div.bDialogBody",$(dialog)).css(bodyCss);
 			
 			//若是iFrame模式则设置iFrame高度等样式
 			if(!obj){
-				var bodyFrameCss = {'height':newBodyHeight,'max-height':newBodyHeight};
+				var frameHeight = newBodyHeight - bodyPaddingTop - bodyPaddingBottom;
+				var minFrameHeight = 100 - bodyPaddingTop - bodyPaddingBottom;
+				if(frameHeight < minFrameHeight) frameHeight = minFrameHeight;
+				var bodyFrameCss = {'height':frameHeight,'max-height':frameHeight};
 				$("iframe.bDialogBodyFrame",$(dialog)).css(bodyFrameCss);
 			}
 			//清除所有已弹出窗口的当前激活样式

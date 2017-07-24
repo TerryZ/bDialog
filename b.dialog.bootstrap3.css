@@ -5,11 +5,29 @@ div.bDialog {
 	-webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
+
+}
+div.bDialog.in div.modal-dialog {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+    transform: translate(0,0);
+}
+div.bDialog div.modal-dialog {
+	position: relative;
+	margin: 0px auto;
+	width: 100%;
+}
+div.bDialog div.modal-content {
+	position: relative;
 	-webkit-box-shadow: 0 5px 30px rgba(0,0,0,0.9);
 	box-shadow: 0 5px 30px rgba(0,0,0,0.9);
-}
-div.bDialog div.modal-dialog{
+	background-color: white;
 	
+	-webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 0px;
 }
 div.bDialog div.modal-header {
 	-webkit-border-top-left-radius: 2px;
@@ -20,9 +38,16 @@ div.bDialog div.modal-header {
     border-top-right-radius: 2px;
 	padding: 5px 15px;
 }
+div.bDialog div.modal-header h3 {
+	margin: 0;
+    line-height: 30px;
+    font-size: 18px;
+}
 div.bDialog div.modal-body {
 	padding: 5px;
 	overflow: hidden;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
 }
 div.bDialog div.modal-body iframe {
 	position: relative;
@@ -31,6 +56,7 @@ div.bDialog div.modal-body iframe {
 div.bDialog div.modal-header button.close {
 	opacity: 0.3;
 	font-size: 26px !important;
+	margin-top: 3px;
 }
 div.bDialog div.modal-header button.close:hover {
 	opacity: 1;
@@ -60,7 +86,11 @@ div.bDialog.fullWidth  div.modal-header {
 div.bDialog.fullWidth  div.modal-header h3 {
 	text-align: center;
 }
-
+div.bDialog.fullWidth div.modal-content {
+	-webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
 
 /*
 Animate.css - http://daneden.me/animate

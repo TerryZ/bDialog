@@ -54,6 +54,8 @@ div.bDialog div.modal-header h3 {
 div.bDialog div.modal-body {
 	padding: 5px;
 	overflow: hidden;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
 }
 div.bDialog div.modal-body iframe {
 	position: relative;
@@ -91,7 +93,11 @@ div.bDialog.fullWidth  div.modal-header {
 div.bDialog.fullWidth  div.modal-header h3 {
 	text-align: center;
 }
-
+div.bDialog.fullWidth div.modal-content {
+	-webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
 
 /*
 Animate.css - http://daneden.me/animate
