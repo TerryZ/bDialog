@@ -75,6 +75,7 @@ div.bDialog.fullWidth {
 	-webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
+    padding-right: 0px;
 }
 div.bDialog.fullWidth  div.modal-header {
 	-webkit-border-radius: 0px;

@@ -197,16 +197,18 @@
 				$(this).remove();
 				if($('[dialog="bDialog"]',$(topBody)).size() > 0) $('[dialog="bDialog"]:last',$(topBody)).addClass('dialogInActive');
 			});
-			$top('div.bDialog:last',$top(topBody)).off('click.bDialog').on('click.bDialog',function(e){
-				var srcEl = e.target || e.srcElement;
-				if($(srcEl).is('div.bDialog')){
-					var that = $top('div.bDialog:last',$top(topBody));
-					$top(that).removeClass('animated').removeClass('shake');
-					setTimeout(function () {
-						that.addClass('animated').addClass('shake');
-					}, 0);
-				}
-			});
+			if(!p.fullWidth){
+				$top('div.bDialog:last',$top(topBody)).off('click.bDialog').on('click.bDialog',function(e){
+					var srcEl = e.target || e.srcElement;
+					if($(srcEl).is('div.bDialog')){
+						var that = $top('div.bDialog:last',$top(topBody));
+						$top(that).removeClass('animated').removeClass('shake');
+						setTimeout(function () {
+							that.addClass('animated').addClass('shake');
+						}, 0);
+					}
+				});
+			}
 	        //浏览器窗口尺寸变化时，自动对窗口位置进行调整
 	        $top(window.top).bind('resize.bDialog', function() {
 	            // clear a previously set timeout
@@ -293,6 +295,8 @@
 				var bodyFrameCss = {'height':frameHeight,'max-height':frameHeight};
 				$("iframe.bDialogBodyFrame",$(dialog)).css(bodyFrameCss);
 			}
+			if(p.fullWidth) $(dialog).css('padding-right','0px');
+			
 			//清除所有已弹出窗口的当前激活样式
 			$('[dialog="bDialog"]',$(topBody)).removeClass('dialogInActive');
 			$(dialog).addClass('dialogInActive');
