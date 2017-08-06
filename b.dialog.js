@@ -34,6 +34,14 @@
  * 修复部分参数丢失的问题
  * 2017.07.20
  * 修复窗口最小高度限制问题
+ * 2017.07.24
+ * 修复Bootstrap3下样式应用无效果问题
+ * 统一处理Bootstrap2、3的窗口高度计算
+ * 修复Bootstrap3下全宽度窗口没有铺满全宽度的问题
+ * 2017.08.06
+ * 增加窗口最大化功能
+ * 增加dialogMaxButton配置项目，设置是否启用最大化窗口按钮，默认：true
+ * 修正部分样式问题
  */
 /* ========================================================================
  * Bootstrap: modal.js v3.3.7
@@ -52,7 +60,8 @@
 			   '<div class="modal-dialog" role="document">' + 
 			   '<div class="modal-content">' + 
 			   '<div class="modal-header bDialogHeader">' + 
-			   '<button type="button" class="close bDialogCloseButton" data-dismiss="modal" aria-hidden="true">×</button>' + 
+			   '<button type="button" class="close bDialogCloseButton" data-dismiss="modal" aria-hidden="true">×</button>' +
+			   '<button type="button" class="close maximize bDialogMaxButton" data-dismiss="modal" aria-hidden="true">□</button>' +
 			   '<h3 class="bDialogHeaderLabel"></h3>' + 
 			   '</div>' + 
 			   '<div class="modal-body bDialogBody"></div>' + 
@@ -67,7 +76,8 @@
 		'width' : 700,
 		'height' : 400,
 		'animation' : false,   //动画效果，默认关闭
-		'dialogCloseButton' : true,//窗口标题栏的关闭按钮是否显示
+		'dialogCloseButton' : true,//窗口标题栏的关闭按钮是否启用
+		'dialogMaxButton' : true,//窗口标题栏的最大化按钮是否启用
 		'closeButton' : false, //对话框底部的关闭窗口按钮
 		'scroll' : true,       //是否显示滚动条，默认显示
 		'drag' : true,         //是否允许窗口进行拖拽
@@ -113,6 +123,7 @@
 			if(p.title) $("h3.bDialogHeaderLabel",$(dialog)).html(p.title);
 			else $('div.bDialogHeader',$(dialog)).hide();
 			if(!p.dialogCloseButton)$('button.bDialogCloseButton',$(dialog)).hide();
+			if(!p.dialogMaxButton)$('button.bDialogMaxButton',$(dialog)).hide();
 			if(p.animation) $(dialog).addClass('fade');//设置动画效果
 			if(p.closeButton){
 				$("div.bDialogFooter",$(dialog)).empty().append('<button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">关闭</button>');
@@ -186,6 +197,12 @@
 			if(p.onHide && $.isFunction(p.onHide)) $top(dialog).off('hide.bs.modal').on('hide.bs.modal',function(){
 				p.onHide(this);
 			});
+			if(p.dialogMaxButton){
+				$top('button.bDialogMaxButton',dialog).off('click.bDialog').on('click.bDialog',function(e){
+					e.stopPropagation();
+					_bDialog.maxWindow(dialog,p);
+				});
+			}
 			$top(dialog).off('hidden.bs.modal').on('hidden.bs.modal',function(e){
 				// stop the timeout
                 clearTimeout(dialog.timeout);
@@ -316,7 +333,23 @@
 	        _bDialog.rePosition(dialog,0);
 			//处理窗口拖拽
 			if(p.drag && $.fn.draggable && !msie && !p.fullWidth) $(dialog).draggable({handle:"div.bDialogHeader"});
-    	},
+		},
+		/**
+		 * 最大化窗口
+		 * 
+		 * @access private
+		 */
+		maxWindow : function(dialog,p){
+			var $top = window.top.$;
+			if(!dialog.max){
+				$top(dialog).addClass('maximize');				
+				dialog.max = true;
+			}else{
+				$top(dialog).removeClass('maximize');
+				dialog.max = false;
+			}
+			_bDialog.rePosition(dialog,0);
+		},
 		/**
 	     * 重新定位窗口位置(主要是处理垂直高度居中)
     	 * @param {object} dialog - 生成后的窗口对象

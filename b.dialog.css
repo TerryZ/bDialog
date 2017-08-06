@@ -23,6 +23,26 @@ div.bDialog.in div.modal-dialog {
     -o-transform: translate(0,0);
     transform: translate(0,0);
 }
+
+/* 窗口最大化功能 */
+div.bDialog.maximize {
+	-webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+div.bDialog.maximize div.modal-dialog {
+	width: 100% !important;
+	height: 100% !important;
+}
+div.bDialog.maximize div.modal-content {
+	height: 100% !important;
+	-webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+
+
 div.bDialog div.modal-dialog {
 	position: relative;
 	margin: 0px auto;
@@ -68,7 +88,14 @@ div.bDialog div.modal-header button.close {
 div.bDialog div.modal-header button.close:hover {
 	opacity: 1;
 }
-
+div.bDialog div.modal-header button.bDialogCloseButton {
+	font-weight: normal;
+}
+div.bDialog div.modal-header button.maximize {
+	margin-right: 5px;
+	margin-top: 1px;
+	font-size: 25px !important;	
+}
 div.modal-backdrop, div.modal-backdrop.fade.in {
 	opacity: 0.8;
 	background-color: black;
