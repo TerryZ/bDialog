@@ -203,18 +203,18 @@
          */
         'type' : 'dialog',
         /**
-         * 消息对话框模式的提示信息文本内容
+         * 消息对话框模式的提示信息文本内容，仅内部使用，不接受用户传递
          * @type string
          */
         'message' : undefined,
         /**
          * 消息对话框类型
          * @type string
-         * info      消息提示（默认）
-         * warning   警告
-         * error     错误
-         * success   成功
-         * confirm   确认
+         * @enum info      消息提示（默认）
+         * @enum warning   警告
+         * @enum error     错误
+         * @enum success   成功
+         * @enum confirm   确认
          */
         'messageType' : 'info',
         /**
