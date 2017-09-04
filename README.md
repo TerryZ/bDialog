@@ -14,8 +14,8 @@ A multiple layer dialog, Flexible style setting, base on bootstrap
 <ul>
   <li>jQuery plugin,base on bootstrap2,3</li>
   <li>can open multiple Nested dialog</li>
-  <li>can open info、warning、error、success、confirm types of alert windows</li>
-  <li>can open mask layer block all element when data loading</li>
+  <li>can open info、warning、error、success、confirm types of alert windows</li>
+  <li>can open mask layer block all element when data loading</li>
   <li>Flexible style setting</li>
   <li>When the browser size changes, the window is automatically repositioned to the center of the browser</li>
   <li>dialog area outside the click, the window automatically positioning and other scenes have a corresponding reminder animation</li>
