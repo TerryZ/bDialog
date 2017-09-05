@@ -1,4 +1,5 @@
 # bDialog
+[简体中文文档](README-CN.md)
 A multiple layer dialog, Flexible style setting, base on bootstrap
 
 plugin preview  
