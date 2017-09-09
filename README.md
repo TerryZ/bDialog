@@ -44,38 +44,44 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
 
 - **backdrop** `string | boolean`  
   default : 'static'  
-  窗口背景遮罩设置
-  - 'static' : 静态模式窗口，鼠标点击背景不关闭窗口  
-  - false : 不显示背景遮罩  
-  - true : 显示背景遮罩，但鼠标点击遮罩会关闭窗口  
+  the dialog backdrop layer set
+  - 'static' : click the backdrop can not close the dialog
+  - false : do not show backdrop
+  - true : show backdrop, but click the backdrop will close dialog
 
 - **title** `string | boolean`  
   default : '对话框'  
-  标题栏显示文本，设置为false则关闭标题栏
+  set text to show in title bar,set `false` to close the title bar
 
 - **language** `string`  
   default : 'cn'  
-  使用的语言
+  dialog using language
+
+| code | language |
+| ------ | ------ |
+| cn | chinese |
+| en | english |
+| jp | japanse |
 
 - **width** `number`  
   default : 700  
-  窗口宽度
+  dialog width, only work on modal dialog mode
 
 - **height** `number`  
   default : 400  
-  窗口高度
+  dialog height, only work on modal dialog mode
 
 - **animation** `boolean`  
   default : true  
-  窗口打开时的动画效果
+  whether show animation when dialog open
 
 - **dialogCloseButton** `boolean`  
   default : true  
-  窗口标题栏的关闭按钮是否启用
+  whether show the 'X' close button
 
 - **dialogMaxButton** `boolean`  
   default : true  
-  窗口标题栏的最大化按钮是否启用
+  whether show maximize button
 
 - **closeButton** `boolean`  
   default : false  
