@@ -94,11 +94,21 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
 - **url** `string`  
   default : false  
   the remote page url open in modal dialog
-/**
- * 需要在窗口里显示的HTML DOM内容
- * 如果设置了dom参数，则优先设置，插件不会再加载url所指定的内容
- * @type object
- */
+
+- **params** `object`  
+  default : undefined  
+  pass the parameters to the new open modal dialog, in the new modal dialog you can get parameters like this
+  ```js
+  var params = bDialog.getDialogParams();
+  ```
+  **example**
+  ```js
+  params : {
+    name : 'Michael',
+    num : 23
+  }
+  ```
+
 - **dom** `object`  
   default : undefined  
   the html element or javascript object or jquery object to show in modal dialog
@@ -106,10 +116,7 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
 - **fullWidth** `boolean`  
   default : false  
   whether to show full width modal dialog
-/**
- * 自定义样式，它会添加到弹出窗口的最外层DIV上
- * @type string
- */
+
 - **customClass** `string`  
   default : undefined  
   specify custom style class name
@@ -133,15 +140,12 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
 - **onHidden** `function`  
   default : undefined  
   when dialog completely close callback
-/**
- * 窗口回调函数，参数1：回调后返回的数据(callback(data))
- * @type function
- */
+
 - **callback** `function`  
   default : undefined  
-  when dialog close callback, this callback different from others callback its can be return data to caller. 
-  **param**
-  *data* `object` return to caller data
+  when dialog close callback, this callback different from others callback its can be return data to caller.   
+  **param**  
+  *data* `object` return to caller data  
   **example**
   ```js
   {
@@ -152,7 +156,7 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
     }
   }
   //the param data is come from 
-  bDialog.close({'i am return data'});
+  bDialog.close('i am return data');
   ```
 
 - **messageType** `string`  
@@ -174,4 +178,83 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
   cancel : function(dialog){
     bDialog.alert('The deal was canceled');
   }
+  ```
+
+## API
+
+- **open**  
+  open a modal dialog  
+  *param*
+  - params
+  *example*
+  ```js
+  bDialog.open({
+    url : 'http://someurl'
+  });
+  //so simple to open a remote page in modal dialog
+  ```
+- **close**  
+  close opened dialog (modal, alert, mask)  
+  *param*
+  - data `object` return to caller data
+  - [dialog] `object` optional to set, if you have a opened dialog object,you can directly to it. if no setup this param, plugin will close the last open dialog
+  *example*
+  ```js
+  bDialog.close({name:'Michael',num:23});//close and return data(last open dialog)
+
+  var dlg = bDialog.open({...});
+  $('#theBtn').click(function(){
+    bDialog.close({name:'Michael',num:23},dlg);
+  });
+  ```
+- **getDialog**  
+  get last opened dialog (modal, alert, mask)
+  ```js
+  var dlg = bDialog.getDialog();
+  ```
+- **getDialogParams**  
+  get params data from open dialog params
+  ```js
+  bDialog.open({
+    params : {
+      name : 'Michael',
+      num : 23
+    }
+  });
+  ```
+  in the opened modal dialog, you can get params like this
+  ```js
+  var params = bDialog.getDialogParams();
+  $('#name').val(params.name);
+  ```
+- **alert**  
+  open a message alert dialog, the alert dialog can be info, warning, error, success, confirm types
+  *param*
+  - message `string` the message show in alert dialog
+  - callback `function` close alert dialog callback
+  - params `object` setup alert dialog params
+  ```js
+  bDialog.alert('a am info message');//just show message
+
+  bDialog.alert('a am info message',function(){
+    $('#name').val('');
+  });//show message and do something when alert dialog close
+
+  bDialog.alert('a am info message',function(){
+    $('#name').val('');
+  },{
+    messageType : 'confirm',//open confirm alert dialog
+    cancel : function(){
+      $('#name').val('my default name');
+    }
+  });//show message, callback,and setup init params
+  ```
+- **mask**  
+  *param*  
+  - message
+  - params
+  ```js
+  bDialog.mask();//show a block every element layer and default prompt message
+
+  bDialog.mark('please wait for a moment...');//show a mask and custom text
   ```
