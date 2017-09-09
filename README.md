@@ -99,7 +99,8 @@ bDialog.open({
     },
     callback:function(data){
         if(data && data.results && data.results.length > 0 ){
-            bDialog.alert('已完成弹出窗口操作！<br>接收到弹出窗口传回的 userName 参数，值为：<b>' + data.results[0].userName + '</b>');
+            bDialog.alert('已完成弹出窗口操作！<br>接收到弹出窗口传回的 userName 参数，值为：<b>' + 
+            data.results[0].userName + '</b>');
         }else{
             bDialog.alert('弹出窗口未回传参数',$.noop,{
               messageType : 'error'
