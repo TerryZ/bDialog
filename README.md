@@ -163,6 +163,7 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
     - error
     - success
     - confirm
+  
   the different type will show different icon
 
 - **cancel** `function`  
