@@ -24,7 +24,7 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
 
 ## What is bDialog
 
-
+bDialog can be multi-layer nested, highly customizable modal dialog, alert dialog, mask layer. bDialog is basis on Boostrap Modal plugin
 
 ### Key Features
 
@@ -38,6 +38,76 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
 - rich callback function
 - brower supper IE8+,chrome,firefox
 
+### The Alert Dialog Icon
+
+the icons in alert dialog used are made by [Elegant Themes](http://www.elegantthemes.com/blog/freebie-of-the-week/beautiful-flat-icons-for-free)
+
+### License
+
+MIT
+
+
+## Why
+
+bDialog development at the beginning, the purpose is to unify the development team for **Bootstrap Modal** use, such as a unified set of background click does not close the window, close the bottom button area, unified set parameters to receive, callback function and other basic functions; follow-up is to focus on the window Multi-layer nested open functional requirements, in particular, to solve the damn **IE8** multi-level nested open will lead to the collapse of the browser.
+
+bDialog for the use of **Bootstrap** as a base UI framework in the project, while more want to use Bootstrap original ecological components of the group.
+
+bootstrap native modal function components, the function is relatively weak, bDialog does not remake the wheels, on the basis of **Bootstrap Modal** make it more powerful, more useful, more customizable, making it more in line with the development of functional requirements, through continuous functional improvement and problems Repair, bDialog plugin has been updated to the present. Over the past few years through a number of teams and the use of multiple projects, hope bDialog can make more teams, individuals benefit.
+
+
+## How to use bDialog
+
+### Install
+
+download bDialog plugin zip file by last release, or [Click Me](https://github.com/TerryZ/bDialog/archive/master.zip) to download bDialog
+
+### Usage
+
+As you can see in the [Demo Page](https://terryz.github.io/bdialog/demo.html), you will need to include:
+
+- [jQuery library](jquery.com) (1.6.0+), unsupport jquery2.x & 3.x
+- The JavaScript file b.dialog.js (or its minified version b.dialog.min.js)
+- The css file b.dialog.bootstrap3.css for bootstrap3.x , b.dialog.css for bootstrap2.x
+
+#### Including files
+
+```html
+<!-- include for Bootstrap2.x -->
+<link rel="stylesheet" href="b.dialog.css" type="text/css">
+<!-- include for Bootstrap3.x -->
+<link rel="stylesheet" href="b.dialog.bootstrap3.css" type="text/css">
+<!-- Above the css file under your css framework choose one of them to include -->
+ 
+ 
+<!-- jquery-ui draggable liabrary -->
+<script type="text/javascript" src="jquery-ui.min.js" >< /script>
+
+<script type="text/javascript" src="b.dialog.js" >< /script>
+```
+
+#### Javascript init plugin
+
+```js
+bDialog.open({
+    title : 'User Info Modify',
+    width : 500,
+    height : 450,
+    url : 'http://aa.com/load',
+    params : {
+        'userName' : 'Bryant'
+    },
+    callback:function(data){
+        if(data && data.results && data.results.length > 0 ){
+            bDialog.alert('已完成弹出窗口操作！<br>接收到弹出窗口传回的 userName 参数，值为：<b>' + data.results[0].userName + '</b>');
+        }else{
+            bDialog.alert('弹出窗口未回传参数',$.noop,{
+              messageType : 'error'
+            });
+        }
+    }
+});
+```
 
 ## Options
 
@@ -57,7 +127,7 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
   default : 'cn'  
   dialog using language
 
-| code | language |
+| Code | Language |
 | ------ | ------ |
 | cn | chinese |
 | en | english |
@@ -264,3 +334,9 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
 
   bDialog.mark('please wait for a moment...');//show a mask and custom text
   ```
+
+
+
+## Thank you for read and sorry
+
+terrible english by [TerryZ](https://github.com/TerryZ)
