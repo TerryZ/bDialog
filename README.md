@@ -67,7 +67,7 @@ download bDialog plugin zip file by last release, or [Click Me](https://github.c
 
 As you can see in the [Demo Page](https://terryz.github.io/bdialog/demo.html), you will need to include:
 
-- [jQuery library](jquery.com) (1.6.0+), unsupport jquery2.x & 3.x
+- [jQuery library](http://jquery.com) (1.6.0+), unsupport jquery2.x & 3.x
 - The JavaScript file b.dialog.js (or its minified version b.dialog.min.js)
 - The css file b.dialog.bootstrap3.css for bootstrap3.x , b.dialog.css for bootstrap2.x
 
