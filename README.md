@@ -21,6 +21,7 @@
 ## Guide、Demo、Docs
 
 Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank">https://terryz.github.io/bdialog/index.html</a>
+<br><br>
 
 ## What is bDialog
 
@@ -46,7 +47,7 @@ the icons in alert dialog used are made by [Elegant Themes](http://www.elegantth
 
 MIT
 
-
+<br><br><br><br>
 ## Why
 
 bDialog development at the beginning, the purpose is to unify the development team for **Bootstrap Modal** use, such as a unified set of background click does not close the window, close the bottom button area, unified set parameters to receive, callback function and other basic functions; follow-up is to focus on the window Multi-layer nested open functional requirements, in particular, to solve the damn **IE8** multi-level nested open will lead to the collapse of the browser.
@@ -55,7 +56,7 @@ bDialog for the use of **Bootstrap** as a base UI framework in the project, whil
 
 bootstrap native modal function components, the function is relatively weak, bDialog does not remake the wheels, on the basis of **Bootstrap Modal** make it more powerful, more useful, more customizable, making it more in line with the development of functional requirements, through continuous functional improvement and problems Repair, bDialog plugin has been updated to the present. Over the past few years through a number of teams and the use of multiple projects, hope bDialog can make more teams, individuals benefit.
 
-
+<br><br><br><br>
 ## How to use bDialog
 
 ### Install
@@ -109,6 +110,8 @@ bDialog.open({
     }
 });
 ```
+
+<br><br>
 
 ## Options
 
