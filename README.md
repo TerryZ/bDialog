@@ -1,6 +1,6 @@
 # bDialog
 
-> A can be multi-layer nested, highly customizable modal dialog, alert dialog, mask layer
+> A can be multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal dialog, alert dialog, mask layer
 
 [简体中文文档](README-CN.md)
 
@@ -24,7 +24,7 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
 
 ## What is bDialog
 
-bDialog can be multi-layer nested, highly customizable modal dialog, alert dialog, mask layer. bDialog is basis on Boostrap Modal plugin
+bDialog can be multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal dialog, alert dialog, mask layer. bDialog is basis on Boostrap Modal plugin
 
 ### Key Features
 
