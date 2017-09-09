@@ -164,12 +164,7 @@ Explorer on <a href="https://terryz.github.io/bdialog/index.html" target="_blank
     - success
     - confirm
   the different type will show different icon
-/**
- * confirm模式下，取消按钮的执行回调
- * @type function
- * @example
- * cancel : function(dialog){}
- */
+
 - **cancel** `function`  
   default : undefined  
   when alert dialog mode, and alert type is confirm, this callback is used to the cancel button callback  
