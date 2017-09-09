@@ -4,7 +4,7 @@
 
 [简体中文文档](README-CN.md)
 
-## plugin preview
+## Plugin Preview
 
 *Modal Mode*
 
