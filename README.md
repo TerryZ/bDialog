@@ -339,8 +339,3 @@ bDialog.open({
   bDialog.mark('please wait for a moment...');//show a mask and custom text
   ```
 
-
-
-## Thank you for read and sorry
-
-terrible english by [TerryZ](https://github.com/TerryZ)
