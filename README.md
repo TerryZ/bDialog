@@ -20,10 +20,9 @@
 
 ## Guide、Demo、Docs
 
-Explorer on [https://terryz.github.io/bdialog/en/index.html](https://terryz.github.io/bdialog/en/index.html)
-
-
-<a href="https://terryz.github.io/bdialog/index.html" target="_blank">简体中文文档</a>
+Explorer on 
+- [English site](https://terryz.github.io/bdialog/en/index.html)
+- [简体中文站点](https://terryz.github.io/bdialog/index.html)
 
 <br><br>
 
