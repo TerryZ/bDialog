@@ -20,7 +20,7 @@
 
 ## Guide、Demo、Docs
 
-Explorer on <a href="https://terryz.github.io/bdialog/en/index.html" target="_blank">https://terryz.github.io/bdialog/index.html</a>
+Explorer on <a href="https://terryz.github.io/bdialog/en/index.html" target="_blank">https://terryz.github.io/bdialog/en/index.html</a>
 
 
 <a href="https://terryz.github.io/bdialog/index.html" target="_blank">简体中文文档</a>
