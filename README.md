@@ -24,6 +24,8 @@ Explorer on
 - [English site](https://terryz.github.io/bdialog/en/index.html)
 - [简体中文站点](https://terryz.github.io/bdialog/index.html)
 
+### If you think the project is also good, please add a Star to the project to support the work of the author, Thank you
+
 <br><br>
 
 ## What is bDialog
