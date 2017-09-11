@@ -118,7 +118,7 @@ bDialog.open({
 
 #### Quick Demo
 ```js
-Modal :
+//Modal :
 bDialog.open({
   url : 'http://some url'
 });
@@ -126,13 +126,13 @@ bDialog.open({
   dom : $('#some element').html()
 });
 
-Alert :
+//Alert :
 bDialog.alert('your message');
 bDialog.alert('your message',function(){
   //your callback
 });
 
-Mask :
+//Mask :
 bDialog.mask();
 ```
 
