@@ -1,7 +1,7 @@
 /**
  * 使用Bootstrap的Modal对话框进行二次封装
  * 
- * @version 2.0
+ * @version 2.1
  * 
  * @author Terry
  * created : 2012.11.26
@@ -50,6 +50,11 @@
  * 增加bDialog.alert()对话框模式，支持info、warning、error、success、confirm五种模式
  * 增加bDialog.mask()遮罩模式
  * 修改原bDialog.closeCurrent方法的函数名为bDialog.close
+ * 2017.09.16（2.1）
+ * 增加带文本输入框的Alert confirm消息对话窗口
+ * 增加Alert模式下回车键关闭窗口的功能
+ * 增加Toast边角显示的通知窗口，支持info, warning, error, success以及六个角落显示的功能
+ * 修复部分Bug
  */
 /* ========================================================================
  * Bootstrap: modal.js v3.3.7
@@ -80,7 +85,11 @@
             '<div class="bDialogButtons"><button type="button" class="btn bDialogOk"></button>' +
             '<button type="button" class="btn bDialogCancel"></button></div>' +
             '</div>',
-        mask : '<div class="bDialogMaskContent"><div class="bDialogTimer"></div><div class="messageContent"></div></div>'
+        mask : '<div class="bDialogMaskContent"><div class="bDialogTimer"></div><div class="messageContent"></div></div>',
+        toast : '<div class="bDialogToastContent"><button type="button" class="bDialogToastClose">×</button>' +
+            '<div class="bDialogToastIcon"><i></i></div>' +
+            '<div class="messageContent"><h3></h3><p></p></div>' +
+            '</div>'
     };
 	//默认参数
 	var defaults = {
@@ -173,50 +182,70 @@
          * 显示对话框前执行的回调
          * @type function
          */
-		'onShow' : $.noop,
+		'onShow' : undefined,
         /**
          * 显示完成对话框后执行的回调
          * @type function
          */
-		'onShowed' : $.noop,
+		'onShowed' : undefined,
         /**
          * 关闭/隐藏对话框前执行的回调
          * @type function
          */
-		'onHide' : $.noop,
+		'onHide' : undefined,
         /**
          * 关闭/隐藏对话框后执行的回调
          * @type function
          */
-		'onHidden' : $.noop,
+		'onHidden' : undefined,
         /**
          * 窗口回调函数，参数1：回调后返回的数据(callback(data))
          * @type function
          */
-		'callback' : $.noop,
+		'callback' : undefined,
         /**
          * 对话框模式，该参数为内部参数，不接受用户传递
          * @type string 窗口类型
+         * @access private
          * @enum 'dialog' 模态窗口
          * @enum 'alert' 消息提示框
          * @enum 'mask' 遮罩
+         * @enum 'toast' 边角弹出菜单
          */
         'type' : 'dialog',
         /**
          * 消息对话框模式的提示信息文本内容，仅内部使用，不接受用户传递
          * @type string
+         * @access private
          */
         'message' : undefined,
         /**
          * 消息对话框类型
          * @type string
-         * @enum info      消息提示（默认）
-         * @enum warning   警告
-         * @enum error     错误
-         * @enum success   成功
-         * @enum confirm   确认
+         * @enum 'info'      消息提示（默认）
+         * @enum 'warning'   警告
+         * @enum 'error'     错误
+         * @enum 'success'   成功
+         * @enum 'confirm'   确认
          */
         'messageType' : 'info',
+        /**
+         * 窗口显示位置，仅在type:toast模式下可用
+         * @type string
+         * @enum 'topLeft'       左上角
+         * @enum 'topCenter'     正上方
+         * @enum 'topRight'      右上角
+         * @enum 'bottomLeft'    左下角
+         * @enum 'bottomCenter'  底部正下方
+         * @enum 'bottomRight'   右下角（默认）
+         */
+        'position' : 'bottomRight',
+        /**
+         * 自动关闭窗口的时间，单位：秒，仅在type:toast模式下可用
+         * 设置0关闭自动关闭窗口功能
+         * @type number
+         */
+        'closeTime' : 3,
         /**
          * confirm模式下，取消按钮的执行回调
          * @type function
@@ -252,7 +281,7 @@
         return this;
     };
     //版本号
-    bDialog.version = "2.0"
+    bDialog.version = "2.1"
 
     /**
      * 合并默认参数与用户传递参数
@@ -360,6 +389,7 @@
                         atitle = this.message.titleSuccess;
                         break;
                     case 'confirm':
+                    case 'inputConfirm':
                         atitle = this.message.titleConfirm;
                         break;
                 }
@@ -370,6 +400,27 @@
             var msg = p.message ? p.message : this.message.maskText;
             $('div.messageContent',dialog).html(msg);
             $(dialog).addClass('bDialogMask');
+        }
+        if(p.type === 'toast'){
+            $(dialog).addClass('bDialogToast');
+            $(dialog).addClass(p.position);
+            var cName = '';
+            switch(p.messageType){
+                case 'warning':
+                    cName = 'toastWarning';
+                    break;
+                case 'error':
+                    cName = 'toastError';
+                    break;
+                case 'success':
+                    cName = 'toastSuccess';
+                    break;
+                case 'info':
+                default:
+                    cName = 'toastInfo';
+                    break;
+            }
+            $("div.bDialogToastContent",dialog).addClass(cName);
         }
         //设置全宽度内容
         if(p.fullWidth){
@@ -404,24 +455,26 @@
         };
 
         if(p.onShow && $.isFunction(p.onShow)) $(dialog).off('show.bs.modal').on('show.bs.modal',function(){
-            p.onShow(this);
+            p.onShow(self);
         });
-        if(p.onShowed && $.isFunction(p.onShowed)) $(dialog).off('shown.bs.modal').on('shown.bs.modal',function(){
-            p.onShowed(this);
-            if(p.animation) $('div.modal-content',dialog).addClass('bDialogOpen');
+        $(dialog).off('shown.bs.modal').on('shown.bs.modal',function(e){
+            e.stopPropagation();
+            if(p.onShowed && $.isFunction(p.onShowed)) p.onShowed(self);
+            if(p.animation && !p.fullWidth) $('div.modal-content',dialog).addClass('bDialogOpen');
         });
         if(p.onHide && $.isFunction(p.onHide)) $(dialog).off('hide.bs.modal').on('hide.bs.modal',function(){
-            p.onHide(this);
+            p.onHide(self);
         });
         $(dialog).off('hidden.bs.modal').on('hidden.bs.modal',function(e){
+            e.stopPropagation();
             // stop the timeout
             clearTimeout(self.timeout);
-            if(p.onHidden && $.isFunction(p.onHidden)) p.onHidden(this);
-            if(self.callback && $.isFunction(self.callback)) self.callback();
             //在移除窗口之前，先把iframe移除，解决在IE下，窗口上的输入控件获得不了焦点的问题
-            if($('iframe',$(this)).size() > 0) $('iframe',$(this)).remove();
-            $(this).remove();
+            if($('iframe',$(dialog)).size() > 0) $('iframe',$(dialog)).remove();
+            $(dialog).remove();
             if($('[dialog="bDialog"]',$(topBody)).size() > 0) $('[dialog="bDialog"]:last',$(topBody)).addClass('dialogInActive');
+            if(p.onHidden && $.isFunction(p.onHidden)) p.onHidden(self);
+            if(self.callback && $.isFunction(self.callback)) self.callback();
         });
         if(p.dialogMaxButton){
             $('button.bDialogMaxButton',dialog).off('click.bDialog').on('click.bDialog',function(e){
@@ -429,7 +482,7 @@
                 self.maxWindow();
             });
         }
-        if(p.type !== 'mask' && !p.fullWidth){
+        if(p.type !== 'mask' && p.type !== 'toast' && !p.fullWidth){
             $(dialog).off('click.bDialog').on('click.bDialog',function(e){
                 e.stopPropagation();
                 var srcEl = e.target || e.srcElement;
@@ -442,17 +495,19 @@
             });
         }
         //浏览器窗口尺寸变化时，自动对窗口位置进行调整
-        $(window.top).on('resize.bDialog', function(e) {
-            e.stopPropagation();
-            // clear a previously set timeout
-            // this will ensure that the next piece of code will not be executed on every step of the resize event
-            clearTimeout(self.timeout);
-            // set a small timeout before doing anything
-            self.timeout = setTimeout(function() {
-                // reposition the dialog box
-                self.rePosition();
-            }, 100);
-        });
+        if(p.type !== 'toast'){
+            $(window.top).on('resize.bDialog', function(e) {
+                e.stopPropagation();
+                // clear a previously set timeout
+                // this will ensure that the next piece of code will not be executed on every step of the resize event
+                clearTimeout(self.timeout);
+                // set a small timeout before doing anything
+                self.timeout = setTimeout(function() {
+                    // reposition the dialog box
+                    self.rePosition();
+                }, 100);
+            });
+        }
     };
     /**
      * 在页面上弹出窗口
@@ -465,7 +520,8 @@
             'height' : p.height
         });
         var param = {
-            backdrop : p.backdrop
+            backdrop : p.backdrop,
+            show : true
         };
         if($.type(p.keyboard) !== 'undefined') param.keyboard = p.keyboard;
         $(dialog).modal(param).removeClass('hide');
@@ -503,12 +559,12 @@
          * 处理窗口内部高度样式-----------------------------
          */
         var totalHeight = $('div.modal-dialog',$(dialog)).innerHeight();
-        var head = $("div.bDialogHeader",$(dialog)).outerHeight(true);
+        var head = p.title ? $("div.bDialogHeader",$(dialog)).outerHeight(true) : 0;
         var footer = p.closeButton ? $("div.bDialogFooter",$(dialog)).outerHeight(true) : 0;
         var bodyPaddingTop = parseFloat($("div.bDialogBody",$(dialog)).css('padding-top'));
         var bodyPaddingBottom = parseFloat($("div.bDialogBody",$(dialog)).css('padding-bottom'));
         var newBodyHeight = totalHeight - head - footer;// - bodyPaddingTop - bodyPaddingBottom;
-        var minBodyHeight = 100 - head - footer;//窗口最小高度
+        var minBodyHeight = 80 - head - footer;//窗口最小高度
         if(newBodyHeight < minBodyHeight) newBodyHeight = minBodyHeight;
         var bodyCss = {'height':newBodyHeight,'max-height':newBodyHeight};
         $("div.bDialogBody",$(dialog)).css(bodyCss);
@@ -516,23 +572,70 @@
         //若是iFrame模式则设置iFrame高度等样式
         if(!p.dom){
             var frameHeight = newBodyHeight - bodyPaddingTop - bodyPaddingBottom;
-            var minFrameHeight = 100 - bodyPaddingTop - bodyPaddingBottom;
+            var minFrameHeight = 80 - bodyPaddingTop - bodyPaddingBottom;
             if(frameHeight < minFrameHeight) frameHeight = minFrameHeight;
             var bodyFrameCss = {'height':frameHeight,'max-height':frameHeight};
             $("iframe.bDialogBodyFrame",$(dialog)).css(bodyFrameCss);
         }
         if(p.fullWidth) $(dialog).css('padding-right','0px');
+        if(p.type == 'toast'){
+            var dlgBox = $('div.modal-dialog',$(dialog));
+            var t,l,r,b;
+            if(p.position === 'topRight' || p.position === 'bottomRight')
+                l = (parseFloat(dlgBox.css('left')) - 20) + 'px';
+            if(p.position === 'topLeft' || p.position === 'bottomLeft')
+                r = (parseFloat(dlgBox.css('right')) - 20) + 'px';
+            if(p.position === 'topLeft' || p.position === 'topRight')
+                b = (parseFloat(dlgBox.css('bottom')) - 25) + 'px';
+            if(p.position === 'bottomLeft' || p.position === 'bottomRight')
+                t = (parseFloat(dlgBox.css('top')) - 20) + 'px';
+            var offset = {};
+            switch(p.position){
+                case 'topLeft':
+                    offset = { right : r,bottom : b};
+                    break;
+                case 'topCenter':
+                    l = ($(window.top).width() - p.width - 40) / 2;
+                    b = $(window.top).height() - p.height - 25 - 12;
+                    offset = { left : l, right : l, bottom : b};
+                    break;
+                case 'topRight':
+                    offset = { left : l,bottom : b};
+                    break;
+                case 'bottomLeft':
+                    offset = { right : r,top : t};
+                    break;
+                case 'bottomCenter':
+                    l = ($(window.top).width() - p.width - 40) / 2;
+                    t = $(window.top).height() - p.height - 20 - 12;
+                    offset = { top : t, right : l, left : l};
+                    break;
+                case 'bottomRight':
+                    offset = { left : l,top : t};
+                    break;
+            }
+            $(dialog).css(offset);
+        }
     };
     /**
      * 最后的一些处理
      */
     bDialog.prototype.atLast = function(){
-        var p = this.params,dialog = this.dialog;
+        var p = this.params,dialog = this.dialog, self = this;
         var msie = navigator.userAgent.indexOf("MSIE") !== -1 || navigator.userAgent.indexOf("Trident") !== -1;
         //执行一次窗口位置定位
-        this.rePosition(0);
+        if(p.type !== 'toast') this.rePosition(0);
         //处理窗口拖拽
         if(p.drag && $.fn.draggable && !msie && !p.fullWidth) $(dialog).draggable({handle:"div.bDialogHeader"});
+        if(p.type === 'alert'){
+            if(p.messageType === 'inputConfirm') $('.inputConfirm',dialog).focus();
+            else $('.bDialogOk',dialog).focus();
+        }else $(dialog).focus();
+        if(p.type === 'toast' && p.closeTime > 0){
+            setTimeout(function(){
+                self.close();
+            },p.closeTime * 1000);
+        }
     };
     /**
      * 关闭窗口
@@ -542,7 +645,7 @@
         var dialog = this.dialog,self = this;
         self.returnData = data;
         var modal = dialog.data('bs.modal');
-        modal.hide();
+        if(modal) modal.hide();
     };
     /**
      * 最大化窗口
@@ -700,6 +803,7 @@
                     className = "alertSuccess";
                     break;
                 case 'confirm':
+                case 'inputConfirm':
                     className = "alertConfirm";
                     $('.bDialogCancel',content).show().on('click.bDialog',function(){
                         var dlg = bDialogTools.getDialog();
@@ -715,8 +819,33 @@
             }
             $(content).addClass(className);
             $('.messageContent',content).html(message);
-            $('.bDialogOk',content).on('click.bDialog',function(){
-                Plugin.close();
+            if(type === 'inputConfirm'){
+                $('.messageContent',content).append('<input type="text" class="inputConfirm">');
+                $('.inputConfirm',content).on('input',function(){
+                    if($(this).val()) $(this).removeClass('inputRequire');
+                }).keydown(function(e){
+                    e.stopPropagation();
+                    var key = e.keyCode;
+                    if(key == 13){
+                        var main = $(this).closest('div.bDialogAlert');
+                        $('.bDialogOk',main).trigger('click');
+                        e.preventDefault();
+                    }
+                });
+            }
+            $('.bDialogOk',content).on('click.bDialog',function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                var dlg = $(this).closest('div.bDialog').data('bDialog');
+                //alert(type);
+                if(type === 'inputConfirm'){
+                    var main = $(this).closest('div.bDialogAlert');
+                    var result = $('.inputConfirm',main).val();
+                    if(result) Plugin.close(result,dlg);
+                    else{
+                        $('.inputConfirm',main).addClass('inputRequire');
+                    }
+                }else Plugin.close(dlg);
             });
             param.dom = content;
             if(callback && $.isFunction(callback)) param.callback = callback;
@@ -748,6 +877,67 @@
             param.message = message;
             param.dom = content;
             param.keyboard = false;
+            return new bDialog(param);
+        },
+        /**
+         * 边角弹出的提示窗口
+         * @param message       需要显示的信息
+         * @param param         设置参数
+         * @returns {bDialog}   返回插件对象
+         */
+        toast : function(message,param){
+            if(!message) return;
+            var html = template.toast;
+            var content = $(html),className = '',titleStr = '',title = '';
+            message = bDialogTools.sub(message,56);
+            $('.messageContent p',content).html(message);
+            if(!param) param = {};
+            var type = param.messageType ? param.messageType : '';
+            switch (type){
+                case 'error':
+                    className = "icon-roundclose";
+                    titleStr = '错误';
+                    break;
+                case 'warning':
+                    className = "icon-warn";
+                    titleStr = '警告';
+                    break;
+                case 'success':
+                    className = "icon-roundcheck";
+                    titleStr = '成功';
+                    break;
+                case 'info':
+                default:
+                    className = 'icon-info'
+                    titleStr = '提示';
+                    param.messageType = 'info';
+                    break;
+            }
+            if(param.title && $.type(param.title) === 'string') title = param.title;
+            else if($.type(param.title) === 'undefined') title = titleStr;
+            else title = false;
+            if(title) $('.messageContent h3',content).html(title);
+            else $('.messageContent h3',content).hide();
+            $('div.bDialogToastIcon i',content).addClass('iconfont ' + className);
+            if(param.dialogCloseButton === false) $('button.bDialogToastClose',content).hide();
+            else{
+                $('button.bDialogToastClose',content).on('click.bDialog',function(e){
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var dlg = $(this).closest('div.bDialog').data('bDialog');
+                    Plugin.close(dlg);
+                });
+            }
+
+            param.backdrop = false;
+            param.dom = content;
+            param.dialogCloseButton = false;
+            param.dialogMaxButton = false;
+            param.title = false;
+            param.scroll = false;
+            param.type = 'toast';
+            param.width = 300;
+            param.height = 80;
             return new bDialog(param);
         }
 	};
