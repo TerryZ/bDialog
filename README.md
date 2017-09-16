@@ -394,4 +394,22 @@ bDialog.toast('your message',{
 
   bDialog.mark('please wait for a moment...');//show a mask and custom text
   ```
+- **toast**  
+  *param*  
+  - message
+  - params
+  ```js
+  //show a corner toast dialog, default position on bottomRight
+  bDialog.toast('your message');
+  bDialog.toast('your message',{
+    //toast dialog type
+    messageType : 'warning',
+    //show dialog in topleft position
+    position : 'topLeft',
+    //don't show close button
+    dialogCloseButton : false,
+    //auto close dialog time(second),default 3s
+    closeTime : 0
+  });
+  ```
 
