@@ -1,6 +1,6 @@
 # bDialog
 
-> A can be multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal dialog, alert dialog, mask layer
+> A can be multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal dialog, alert dialog, mask layer, toast dialog
 
 [简体中文文档](README-CN.md)
 
@@ -18,6 +18,9 @@
 
 ![bDialogMask](https://terryz.github.io/image/bDialogMask.png)
 
+*Toast Mode*
+![bDialogToast](https://terryz.github.io/image/bDialogToast.png)
+
 ## Guide、Demo、Docs
 
 Explorer on 
@@ -30,7 +33,7 @@ Explorer on
 
 ## What is bDialog
 
-bDialog can be multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal dialog, alert dialog, mask layer. bDialog is basis on Boostrap Modal plugin
+bDialog can be multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal dialog, alert dialog, mask layer, toast dialog. bDialog is basis on Boostrap Modal plugin
 
 ### Key Features
 
@@ -38,6 +41,7 @@ bDialog can be multi-layer nested, highly customizable powerful dialog plugin, d
 - can open multi-layer Nested modal dialog
 - can open info、warning、error、success、confirm types of alert dialog
 - can open mask layer block all element when data loading
+- can open toast dialog, have info、warning、error、success type and 6 corner position
 - flexible style setting
 - When the browser size changes, the window is automatically repositioned to the center of the browser
 - dialog area outside the click, the window automatically positioning and other scenes have a corresponding reminder animation
@@ -134,6 +138,19 @@ bDialog.alert('your message',function(){
 
 //Mask :
 bDialog.mask();
+
+//Toast :
+bDialog.toast('your message');
+bDialog.toast('your message',{
+  //toast dialog type
+  messageType : 'warning',
+  //show dialog in topleft position
+  position : 'topLeft',
+  //don't show close button
+  dialogCloseButton : false,
+  //auto close dialog time(second),default 3s
+  closeTime : 0
+});
 ```
 
 <br><br>
@@ -266,14 +283,28 @@ bDialog.mask();
 
 - **messageType** `string`  
   default : 'info'  
-  setup alert dialog type, the full type is
+  setup alert dialog, toast dialog type, the full type is
     - info(default)
     - warning
     - error
     - success
-    - confirm
+    - confirm(only work on alert dialog)
   
   the different type will show different icon
+  
+- **position** `string`  
+  default : 'bottomRight'  
+  toast dialog display position, the full position is  
+    - topLeft
+    - topCenter
+    - topRight
+    - bottomLeft
+    - bottomCenter
+    - bottomRight(default)
+
+- **closeTime** `number`  
+  default : 3(second)  
+  auto close toast dialog time, set 0 to disabled auto close dialog
 
 - **cancel** `function`  
   default : undefined  
