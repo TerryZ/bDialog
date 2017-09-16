@@ -1,6 +1,6 @@
 # bDialog
 
-基于Boostrap Modal开发的可多层嵌套、定制灵活的模态窗口
+> 基于Boostrap Modal开发的可多层嵌套、定制灵活的模态窗口
 
 ## 插件预览
 
@@ -10,7 +10,8 @@
 ![bDialogAlert](https://terryz.github.io/image/bDialogAlert.png)
 **遮罩模式**
 ![bDialogMask](https://terryz.github.io/image/bDialogMask.png)
-
+**边角通知窗口模式**
+![bDialogToast](https://terryz.github.io/image/bDialogToast.png)
 
 ## 主要特性
 
@@ -21,7 +22,8 @@
   <li>模态窗口模式可载入服务端页面、远程页面、页面静态元素等内容</li>
   <li>消息对话框模式，包含info、warning、error、success、confirm等模式</li>
   <li>遮罩模式，遮挡全部元素，待指定功能完成后，再移除遮罩，满足加载待的需求</li>
-  <li>可在同一页面下展示各种不同样式、风格的窗口皮肤</li>
+  <li>边角通知窗口模式，包含info、warning、error、success等模式，且有六个角落的显示位置</li>
+  <li>可在同一页面下展示各种不同样式、风格的窗口皮肤</li>
   <li>浏览器尺寸发生改变时，窗口将自动重新定位到浏览器中心区域</li>
   <li>模态窗口区域外点击、窗口自动定位等场景均有相应的提醒动画效果</li>
   <li>丰富的回调函数</li>
