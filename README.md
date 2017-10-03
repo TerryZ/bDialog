@@ -70,13 +70,13 @@ bootstrap native modal function components, the function is relatively weak, bDi
 
 ### Install
 
-download bDialog plugin zip file by last release, or [Click Me](https://github.com/TerryZ/bDialog/archive/master.zip) to download bDialog
+download bDialog plugin zip file by last release, or [Click me](https://github.com/TerryZ/bDialog/archive/master.zip) to download bDialog
 
 ### Usage
 
-As you can see in the [Demo Page](https://terryz.github.io/bdialog/demo.html), you will need to include:
+As you can see in the [Demo page](https://terryz.github.io/bdialog/demo.html), you will need to include:
 
-- [jQuery library](http://jquery.com) (1.6.0+), unsupport jquery2.x & 3.x
+- [jQuery library](http://jquery.com) (1.6.0+), untest on jquery2.x & 3.x
 - The JavaScript file b.dialog.js (or its minified version b.dialog.min.js)
 - The css file b.dialog.bootstrap3.css for bootstrap3.x , b.dialog.css for bootstrap2.x
 
@@ -90,7 +90,7 @@ As you can see in the [Demo Page](https://terryz.github.io/bdialog/demo.html), y
 <!-- Above the css file under your css framework choose one of them to include -->
  
  
-<!-- jquery-ui draggable liabrary -->
+<!-- jquery-ui draggable liabrary if you need dialog drag function -->
 <script type="text/javascript" src="jquery-ui.min.js" >< /script>
 
 <script type="text/javascript" src="b.dialog.js" >< /script>
