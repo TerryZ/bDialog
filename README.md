@@ -4,6 +4,14 @@
 
 [简体中文文档](README-CN.md)
 
+## Guide、Demo、Docs
+
+Explorer on 
+- [English official site](https://terryz.github.io/bdialog/index.html)
+- [中文官网](https://terryz.oschina.io/bdialog/index.html)
+
+### If you think the project is also good, please add a Star to the project to support the work of the author, Thank you
+
 ## Plugin Preview
 
 *Modal Mode*
@@ -21,13 +29,6 @@
 *Toast Mode*
 ![bDialogToast](https://terryz.github.io/image/bDialogToast.png)
 
-## Guide、Demo、Docs
-
-Explorer on 
-- [English site](https://terryz.github.io/bdialog/en/index.html)
-- [简体中文站点](https://terryz.github.io/bdialog/index.html)
-
-### If you think the project is also good, please add a Star to the project to support the work of the author, Thank you
 
 <br><br>
 
