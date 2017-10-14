@@ -1,0 +1,31 @@
+{
+  "name": "bdialog",
+  "version": "2.1.0",
+  "description": "A multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal, alert, mask and toast types",
+  "main": "b.dialog.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TerryZ/bDialog.git"
+  },
+  "keywords": [
+    "jquery",
+    "bootstrap",
+    "dialog",
+    "alert",
+    "multiple-layers",
+    "notifications",
+    "modal",
+    "mask",
+    "toast",
+    "jquery-plugin"
+  ],
+  "author": "TerryZ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TerryZ/bDialog/issues"
+  },
+  "homepage": "https://github.com/TerryZ/bDialog#readme"
+}
