@@ -20,7 +20,8 @@
     "modal",
     "mask",
     "toast",
-    "jquery-plugin"
+    "jquery-plugin",
+	"ui"
   ],
   "author": "TerryZ",
   "license": "MIT",
