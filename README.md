@@ -71,7 +71,11 @@ bootstrap native modal function components, the function is relatively weak, bDi
 
 ### Install
 
-download bDialog plugin zip file by last release, or [Click me](https://github.com/TerryZ/bDialog/archive/master.zip) to download bDialog
+download bDialog plugin zip file by last release, or [Click me](https://github.com/TerryZ/bDialog/archive/master.zip) to download bDialog  
+or use **NPM**  
+```
+npm install bdialog
+```
 
 ### Usage
 
