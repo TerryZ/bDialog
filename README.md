@@ -10,7 +10,6 @@ Explorer on
 - [English official site](https://terryz.github.io/bdialog/index.html)
 - [中文官网](https://terryz.oschina.io/bdialog/index.html)
 
-### If you think the project is also good, please add a Star to the project to support the work of the author, Thank you
 
 ## Status
 
