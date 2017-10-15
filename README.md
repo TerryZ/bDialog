@@ -12,6 +12,10 @@ Explorer on
 
 ### If you think the project is also good, please add a Star to the project to support the work of the author, Thank you
 
+## Status
+
+[![npm version](https://img.shields.io/npm/v/bdialog.svg)](https://www.npmjs.com/package/bdialog)
+
 ## Plugin Preview
 
 *Modal Mode*
