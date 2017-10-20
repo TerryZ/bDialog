@@ -14,6 +14,7 @@ Explorer on
 ## Status
 
 [![npm version](https://img.shields.io/npm/v/bdialog.svg)](https://www.npmjs.com/package/bdialog)
+[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://mit-license.org/)
 
 ## Plugin Preview
 
