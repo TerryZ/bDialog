@@ -4,7 +4,10 @@
   "description": "A multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal, alert, mask and toast types",
   "main": "b.dialog.js",
   "scripts": {
-    "test": "make test"
+    "test": "grunt eslint"
+  },
+  "dependencies": {
+	"jquery": "^1.10.2"
   },
   "repository": {
     "type": "git",
