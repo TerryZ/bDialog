@@ -37,11 +37,8 @@ Explorer on
 
 <br><br>
 
-## What is bDialog
 
-bDialog can be multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal dialog, alert dialog, mask layer, toast dialog. bDialog is basis on Boostrap Modal plugin
-
-### Key Features
+## Features
 
 - jQuery plugin, on Bootstrap Modal plugin basis to extend
 - can open multi-layer Nested modal dialog
@@ -57,6 +54,8 @@ bDialog can be multi-layer nested, highly customizable powerful dialog plugin, d
 ### The Alert Dialog Icon
 
 the icons in alert dialog used are made by [Elegant Themes](http://www.elegantthemes.com/blog/freebie-of-the-week/beautiful-flat-icons-for-free)
+
+and control icon, toast icon used are come from [IconFont](www.iconfont.cn)
 
 ### License
 
