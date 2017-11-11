@@ -422,3 +422,4 @@ bDialog.toast('your message',{
   });
   ```
 
+**If you think this project is helpful, please star it.**
