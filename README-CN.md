@@ -1,3 +1,5 @@
+<p align="center"><img src="logo/vertical.png" alt="bDialog" height="200px"></p>
+
 # bDialog
 
 > 基于Boostrap Modal开发的可多层嵌套、定制灵活的模态窗口
