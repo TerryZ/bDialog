@@ -12,6 +12,7 @@ Explorer on
 - [English official site](https://terryz.github.io/bdialog/index.html)
 - [中文官网](https://terryz.gitee.io/bdialog/index.html)
 
+the VueJS version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
 
 ## Status
 
