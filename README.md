@@ -10,7 +10,7 @@
 
 Explorer on 
 - [English official site](https://terryz.github.io/bdialog/index.html)
-- [中文官网](https://terryz.oschina.io/bdialog/index.html)
+- [中文官网](https://terryz.gitee.io/bdialog/index.html)
 
 
 ## Status
@@ -23,18 +23,18 @@ Explorer on
 
 *Modal Mode*
 
-![bDialogModal](https://terryz.github.io/image/bDialog.png)
+![bDialogModal](https://terryz.gitee.io/image/bDialog.png)
 
 *Alert Mode*
 
-![bDialogAlert](https://terryz.github.io/image/bDialogAlert.png)
+![bDialogAlert](https://terryz.gitee.io/image/bDialogAlert.png)
 
 *Mask Mode*
 
-![bDialogMask](https://terryz.github.io/image/bDialogMask.png)
+![bDialogMask](https://terryz.gitee.io/image/bDialogMask.png)
 
 *Toast Mode*
-![bDialogToast](https://terryz.github.io/image/bDialogToast.png)
+![bDialogToast](https://terryz.gitee.io/image/bDialogToast.png)
 
 
 <br><br>
