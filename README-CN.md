@@ -44,6 +44,7 @@ Bootstrap原生提供的功能组件，功能性相对较弱，bDialog并不重�
 ## 入门指南、DEMO、文档
 
 更多实例、文档请访问：
-[https://terryz.github.io/bdialog/index.html](https://terryz.github.io/bdialog/index.html)
+- [English official site](https://terryz.github.io/bdialog/index.html)
+- [国内站点](https://terryz.gitee.io/bdialog/index.html)
 
 ## 如果您觉得项目还不错，还请给项目（github/码云）加个Star
