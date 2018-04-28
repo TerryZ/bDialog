@@ -2,7 +2,17 @@
 
 # bDialog
 
-> 基于Boostrap Modal开发的可多层嵌套、定制灵活的模态窗口
+基于Boostrap Modal开发的可多层嵌套、定制灵活的模态窗口
+
+## 入门指南、DEMO、文档
+
+更多实例、文档请访问：
+- [English official site](https://terryz.github.io/bdialog/index.html)
+- [国内站点](https://terryz.gitee.io/bdialog/index.html)
+
+VueJS版本： [v-dialogs](https://github.com/TerryZ/v-dialogs)
+
+## 如果您觉得项目还不错，还请给项目（github/码云）加个Star
 
 ## 插件预览
 
@@ -41,10 +51,3 @@ bDialog开发之初，目的是为了统一开发团队对于Bootstrap Modal的�
 Bootstrap原生提供的功能组件，功能性相对较弱，bDialog并不重新造轮子，而是在原生组件的基础上进行功能加强、扩展，使得更符合开发上的功能需求，通过不断的功能完善和问题修复，bDialog插件就一直更新到了现在。几年来经过多个团队和多个项目的使用，将项目进行开源，希望项目可以让更多的团队，个人受益。
 
 
-## 入门指南、DEMO、文档
-
-更多实例、文档请访问：
-- [English official site](https://terryz.github.io/bdialog/index.html)
-- [国内站点](https://terryz.gitee.io/bdialog/index.html)
-
-## 如果您觉得项目还不错，还请给项目（github/码云）加个Star
