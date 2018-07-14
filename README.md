@@ -1,8 +1,8 @@
 <p align="center"><img src="logo/vertical.png" alt="bDialog" height="200px"></p>
 
-# bDialog
+<h3 align="center">bDialog</h3>
 
-> A can be multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal dialog, alert dialog, mask layer, toast dialog
+A can be multi-layer nested, highly customizable powerful dialog plugin, dialog type including modal dialog, alert dialog, mask layer, toast dialog
 
 [简体中文文档](README-CN.md)
 
