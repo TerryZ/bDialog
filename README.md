@@ -6,19 +6,52 @@ A can be multi-layer nested, highly customizable powerful dialog plugin, dialog 
 
 [简体中文文档](README-CN.md)
 
+<br><br>
+
 ## Guide、Demo、Docs
 
 Explorer on 
 - [English official site](https://terryz.github.io/bdialog/index.html)
 - [中文官网](https://terryz.gitee.io/bdialog/index.html)
 
-the VueJS version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
+the Vuejs version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
+
+**If you think this project is helpful, please star it.**
+
+<br><br>
 
 ## Status
 
 [![travis ci](https://travis-ci.org/TerryZ/bDialog.svg?branch=master)](https://travis-ci.org/TerryZ/bDialog)
 [![npm version](https://img.shields.io/npm/v/bdialog.svg)](https://www.npmjs.com/package/bdialog)
 [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://mit-license.org/)
+
+<br><br>
+
+## Features
+
+- jQuery plugin, on Bootstrap Modal plugin basis to extend
+- can open multi-layer Nested modal dialog
+- can open info、warning、error、success、confirm types of alert dialog
+- can open mask layer block all element when data loading
+- can open toast dialog, have info、warning、error、success type and 6 corner position
+- flexible style setting
+- When the browser size changes, the window is automatically repositioned to the center of the browser
+- dialog area outside the click, the window automatically positioning and other scenes have a corresponding reminder animation
+- rich callback function
+- brower supper IE8+,chrome,firefox
+
+<br><br>
+
+### The Alert Dialog Icon
+
+the icons in alert dialog used are made by [Elegant Themes](http://www.elegantthemes.com/blog/freebie-of-the-week/beautiful-flat-icons-for-free)
+
+and control icon, toast icon used are come from [IconFont](http://www.iconfont.cn)
+
+### License
+
+MIT
 
 ## Plugin Preview
 
@@ -40,43 +73,9 @@ the VueJS version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
 
 <br><br>
 
-
-## Features
-
-- jQuery plugin, on Bootstrap Modal plugin basis to extend
-- can open multi-layer Nested modal dialog
-- can open info、warning、error、success、confirm types of alert dialog
-- can open mask layer block all element when data loading
-- can open toast dialog, have info、warning、error、success type and 6 corner position
-- flexible style setting
-- When the browser size changes, the window is automatically repositioned to the center of the browser
-- dialog area outside the click, the window automatically positioning and other scenes have a corresponding reminder animation
-- rich callback function
-- brower supper IE8+,chrome,firefox
-
-### The Alert Dialog Icon
-
-the icons in alert dialog used are made by [Elegant Themes](http://www.elegantthemes.com/blog/freebie-of-the-week/beautiful-flat-icons-for-free)
-
-and control icon, toast icon used are come from [IconFont](http://www.iconfont.cn)
-
-### License
-
-MIT
-
 <br><br><br><br>
-## Why
 
-bDialog development at the beginning, the purpose is to unify the development team for **Bootstrap Modal** use, such as a unified set of background click does not close the window, close the bottom button area, unified set parameters to receive, callback function and other basic functions; follow-up is to focus on the window Multi-layer nested open functional requirements, in particular, to solve the damn **IE8** multi-level nested open will lead to the collapse of the browser.
-
-bDialog for the use of **Bootstrap** as a base UI framework in the project, while more want to use Bootstrap original ecological components of the group.
-
-bootstrap native modal function components, the function is relatively weak, bDialog does not remake the wheels, on the basis of **Bootstrap Modal** make it more powerful, more useful, more customizable, making it more in line with the development of functional requirements, through continuous functional improvement and problems Repair, bDialog plugin has been updated to the present. Over the past few years through a number of teams and the use of multiple projects, hope bDialog can make more teams, individuals benefit.
-
-<br><br><br><br>
-## How to use bDialog
-
-### Install
+## Install
 
 download bDialog plugin zip file by last release, or [Click me](https://github.com/TerryZ/bDialog/archive/master.zip) to download bDialog  
 or use **NPM**  
@@ -132,7 +131,7 @@ bDialog.open({
 });
 ```
 
-#### Quick Demo
+### Quick Demo
 ```js
 //Modal :
 bDialog.open({
@@ -424,5 +423,3 @@ bDialog.toast('your message',{
     closeTime : 0
   });
   ```
-
-**If you think this project is helpful, please star it.**
