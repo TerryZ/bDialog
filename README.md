@@ -7,8 +7,6 @@ A can be multi-layer nested, highly customizable powerful dialog plugin, <br>
 dialog type including modal dialog, alert dialog, mask layer, toast dialog
 </p>
 
-[简体中文文档](README-CN.md)
-
 <br><br>
 
 ## Guide、Demo、Docs
@@ -16,6 +14,8 @@ dialog type including modal dialog, alert dialog, mask layer, toast dialog
 Explorer on 
 - [English official site](https://terryz.github.io/bdialog/index.html)
 - [中文官网](https://terryz.gitee.io/bdialog/index.html)
+
+[简体中文文档](README-CN.md)
 
 the Vuejs version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
 
