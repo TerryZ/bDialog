@@ -8,9 +8,11 @@ dialog type including modal dialog, alert dialog, mask layer, toast dialog
 </p>
 
 <p align="center">  
+
 [![travis ci](https://travis-ci.org/TerryZ/bDialog.svg?branch=master)](https://travis-ci.org/TerryZ/bDialog)
 [![npm version](https://img.shields.io/npm/v/bdialog.svg)](https://www.npmjs.com/package/bdialog)
 [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://mit-license.org/)
+
 </p>
 
 <br><br>
