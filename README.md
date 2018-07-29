@@ -7,12 +7,11 @@ A can be multi-layer nested, highly customizable powerful dialog plugin, <br>
 dialog type including modal dialog, alert dialog, mask layer, toast dialog
 </p>
 
-<p align="center">  
-
-[![travis ci](https://travis-ci.org/TerryZ/bDialog.svg?branch=master)](https://travis-ci.org/TerryZ/bDialog)
-[![npm version](https://img.shields.io/npm/v/bdialog.svg)](https://www.npmjs.com/package/bdialog)
-[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://mit-license.org/)
-
+<p align="center">
+    <a href="https://travis-ci.org/TerryZ/bDialog"><img src="https://travis-ci.org/TerryZ/bDialog.svg?branch=master"></a>
+    <a href="https://www.npmjs.com/package/bdialog"><img src="https://img.shields.io/npm/v/bdialog.svg"></a>
+    <a href="https://www.npmjs.com/package/bdialog"><img src="https://img.shields.io/npm/dy/bdialog.svg"></a>
+    <a href="https://mit-license.org/"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg"></a>
 </p>
 
 <br><br>
