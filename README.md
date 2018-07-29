@@ -30,13 +30,6 @@ the Vuejs version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
 
 <br><br>
 
-## Status
-
-[![travis ci](https://travis-ci.org/TerryZ/bDialog.svg?branch=master)](https://travis-ci.org/TerryZ/bDialog)
-[![npm version](https://img.shields.io/npm/v/bdialog.svg)](https://www.npmjs.com/package/bdialog)
-[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://mit-license.org/)
-
-<br><br>
 
 ## Features
 
