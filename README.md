@@ -52,9 +52,13 @@ the icons in alert dialog used are made by [Elegant Themes](http://www.elegantth
 
 and control icon, toast icon used are come from [IconFont](http://www.iconfont.cn)
 
+<br><br>
+
 ### License
 
 MIT
+
+<br><br>
 
 ## Plugin Preview
 
