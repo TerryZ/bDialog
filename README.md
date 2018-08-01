@@ -114,7 +114,7 @@ As you can see in the [Demo page](https://terryz.github.io/bdialog/demo.html), y
 <script type="text/javascript" src="b.dialog.js" >< /script>
 ```
 
-#### Javascript init plugin
+#### Open a Modal dialog
 
 ```js
 bDialog.open({
