@@ -36,7 +36,7 @@ the Vuejs version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
 - jQuery plugin, on Bootstrap Modal plugin basis to extend
 - multi-layer Nested modal dialog
 - alert mode dialog provide `info`、`warning`、`error`、`success`、`confirm` types
-- can open mask layer block all element when data loading
+- mask layer block all element when data loading
 - can open toast dialog, have info、warning、error、success type and 6 corner position
 - flexible style setting
 - When the browser size changes, the window is automatically repositioned to the center of the browser
