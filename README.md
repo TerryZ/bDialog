@@ -37,7 +37,7 @@ the Vuejs version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
 - multi-layer Nested modal dialog
 - alert mode dialog provide `info`、`warning`、`error`、`success`、`confirm` types
 - mask layer block all element when data loading
-- can open toast dialog, have info、warning、error、success type and 6 corner position
+- toast dialog, provide `info`、`warning`、`error`、`success` types and 6 corner position
 - flexible style setting
 - When the browser size changes, the window is automatically repositioned to the center of the browser
 - dialog area outside the click, the window automatically positioning and other scenes have a corresponding reminder animation
