@@ -3,7 +3,7 @@
 <h3 align="center">bDialog</h3>
 
 <p align="center">
-A can be multi-layer nested, highly customizable powerful dialog plugin, <br>
+A multi-layer nested, highly customizable powerful dialog plugin, <br>
 dialog type including modal dialog, alert dialog, mask layer, toast dialog
 </p>
 
