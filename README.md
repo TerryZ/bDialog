@@ -1,4 +1,4 @@
-<p align="center"><img src="logo/vertical.png" alt="bDialog" ></p>
+<p align="center"><img src="logo/vertical.png" alt="bDialog" height="200" ></p>
 
 <h3 align="center">bDialog</h3>
 
