@@ -41,7 +41,6 @@ the Vuejs version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
 - flexible style setting
 - When the browser size changes, the window is automatically repositioned to the center of the browser
 - dialog area outside the click, the window automatically positioning and other scenes have a corresponding reminder animation
-- rich callback function
 
 <br><br>
 
