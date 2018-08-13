@@ -39,7 +39,7 @@ the Vuejs version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
 - mask layer block all element when data loading
 - toast dialog, provide `info`、`warning`、`error`、`success` types and 6 corner position
 - flexible style setting
-- When the browser size changes, the window is automatically repositioned to the center of the browser
+- when browser size changes, the dialog will automatically repositioned to the center of the browser
 - dialog area outside the click, the window automatically positioning and other scenes have a corresponding reminder animation
 
 <br><br>
