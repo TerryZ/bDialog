@@ -19,8 +19,8 @@ dialog type including modal dialog, alert dialog, mask layer, toast dialog
 ## Guide、Demo、Docs
 
 Explorer on 
-- [English official site](https://terryz.github.io/bdialog/index.html)
-- [中文官网](https://terryz.gitee.io/bdialog/index.html)
+- [English site](https://terryz.github.io/bdialog)
+- [中文官网](https://terryz.gitee.io/bdialog)
 
 [简体中文文档](README-CN.md)
 
