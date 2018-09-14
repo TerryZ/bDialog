@@ -82,9 +82,10 @@ MIT
 ## Install
 
 download bDialog plugin zip file by last release, or [Click me](https://github.com/TerryZ/bDialog/archive/master.zip) to download bDialog  
+
 or use **NPM**  
 ```
-npm install bdialog
+npm i bdialog
 ```
 
 ### Usage
