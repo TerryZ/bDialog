@@ -26,7 +26,7 @@ Explorer on
 
 [简体中文文档](README-CN.md)
 
-the Vuejs version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
+The Vuejs version: [v-dialogs](https://github.com/TerryZ/v-dialogs)
 
 **If you think this project is helpful, please star it.**
 
