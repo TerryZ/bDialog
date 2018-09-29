@@ -53,12 +53,6 @@ and control icon, toast icon used are come from [IconFont](http://www.iconfont.c
 
 <br><br>
 
-### License
-
-MIT
-
-<br><br>
-
 ## Plugin Preview
 
 *Modal Mode*
