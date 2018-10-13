@@ -18,7 +18,7 @@ dialog type including modal dialog, alert dialog, mask layer, toast dialog
 
 <br><br>
 
-## Guide、Demo、Docs
+## Guide, Demos and Documents
 
 Explorer on 
 - [English site](https://terryz.github.io/bdialog)
