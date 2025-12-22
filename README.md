@@ -21,7 +21,7 @@ dialog type including modal dialog, alert dialog, mask layer, toast dialog
 ## Guide, Demos and Documents
 
 Explorer on 
-- [English site](https://terryz.github.io/bdialog)
+- [English site](https://terryz.github.io/docs-jq/dialog)
 - [中文官网](https://terryz.gitee.io/bdialog)
 
 [简体中文文档](README-CN.md)
@@ -86,7 +86,7 @@ npm i bdialog
 
 ### Usage
 
-As you can see in the [Demo page](https://terryz.github.io/bdialog/demo.html), you will need to include:
+As you can see in the [Demo page](https://terryz.github.io/docs-jq/dialog/demo.html), you will need to include:
 
 - [jQuery library](http://jquery.com) (1.6.0+), untest on jquery2.x & 3.x
 - The JavaScript file b.dialog.js (or its minified version b.dialog.min.js)
